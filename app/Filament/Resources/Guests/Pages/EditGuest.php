@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Filament\Resources\Guests\Pages;
+
+use App\Filament\Resources\Guests\GuestResource;
+use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
+use Illuminate\Http\RedirectResponse;
+
+class EditGuest extends EditRecord
+{
+    protected static string $resource = GuestResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            DeleteAction::make(),
+        ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+}
