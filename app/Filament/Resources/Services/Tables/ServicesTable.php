@@ -18,7 +18,8 @@ class ServicesTable
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('description'),
-                TextColumn::make('price'),
+                TextColumn::make('price')
+                    ->money('KSH'),
             ])
             ->filters([
                 //

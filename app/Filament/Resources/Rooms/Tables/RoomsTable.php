@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Rooms\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -15,6 +16,7 @@ class RoomsTable
         return $table
             ->columns([
                 TextColumn::make('room_number')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
                     ->searchable(),
@@ -37,6 +39,7 @@ class RoomsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
