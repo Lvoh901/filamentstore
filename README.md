@@ -12,87 +12,134 @@ The project utilizes the TALL stack (Tailwind CSS, Alpine.js, Laravel, and Livew
 -   **Amenity and Service Management:** Define and manage amenities and services offered by the hotel.
 -   **User Roles and Permissions:** Control access to different features based on user roles.
 
-## Building and Running
+## Getting Started
+
+Follow these instructions to get the project up and running on your local machine.
 
 ### Prerequisites
 
--   PHP >= 8.2
--   Node.js
--   Composer
--   NPM
+Ensure you have the following installed on your system:
+
+-   **PHP** >= 8.2 (ensure `pdo_mysql` extension is enabled in `php.ini`)
+-   **Composer** (PHP Dependency Manager)
+-   **Node.js** & **NPM** (JavaScript Package Manager)
+-   **MySQL** Database Server
 
 ### Installation
 
-1. **Clone the repository:**
+1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/your-repository.git
+    git clone https://github.com/your-username/filamentstore.git
+    cd filamentstore
     ```
 
-2. **Install PHP dependencies:**
+2.  **Install Backend Dependencies:**
 
     ```bash
     composer install
     ```
 
-3. **Install NPM dependencies:**
+3.  **Install Frontend Dependencies:**
 
     ```bash
     npm install
     ```
 
-4. **Set up the environment file:**
+4.  **Environment Configuration:**
+
+    Copy the example environment file and configure it:
 
     ```bash
     cp .env.example .env
     ```
 
-5. **Generate an application key:**
+    Open `.env` and set your database credentials:
+
+    ```ini
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+    ```
+
+5.  **Generate Application Key:**
 
     ```bash
     php artisan key:generate
     ```
 
-6. **Create a database file:**
+6.  **Database Setup:**
 
-    ```bash
-    touch database/database.sqlite
-    ```
+    Make sure your MySQL server is running and the database specified in `.env` exists.
 
-7. **Run database migrations:**
+    Run migrations to create tables:
     ```bash
     php artisan migrate
     ```
 
-### Development
+    (Optional) Seed the database with initial data:
+    ```bash
+    php artisan db:seed
+    ```
 
-To run the development server, which includes the Laravel server, queue worker, log watcher, and Vite server, use the following command:
+7.  **Link Storage:**
+
+    Link the public storage directory to make uploaded files accessible:
+    ```bash
+    php artisan storage:link
+    ```
+
+8.  **Build Frontend Assets:**
+
+    Generate the Vite manifest and assets:
+    ```bash
+    npm run build
+    ```
+
+### Running the Application
+
+To run the application locally, you can use the helper command defined in `composer.json` which starts the Laravel server, Queue worker, and Vite dev server simultaneously:
 
 ```bash
 composer run dev
 ```
 
-Alternatively, you can run the servers individually:
+Alternatively, you can run the services manually in separate terminal windows:
 
--   **Laravel server:**
-    ```bash
-    php artisan serve
-    ```
-
-### Testing
-
-To run the test suite, use the following command:
-
+**Laravel Server:**
 ```bash
-composer test
+php artisan serve
 ```
 
-## Development Conventions
-
-This project uses Laravel Pint for code styling. To format your code, run the following command:
-
+**Vite Development Server:**
 ```bash
-./vendor/bin/pint
+npm run dev
+```
+
+**Queue Listener (for background jobs):**
+```bash
+php artisan queue:listen
+```
+
+Access the application at `http://localhost:8000`.
+
+## Troubleshooting
+
+### "could not find driver"
+This usually refers to the missing MySQL driver for PHP.
+1. Locate your `php.ini` file (run `php --ini` to find it).
+2. Open it and find `;extension=pdo_mysql`.
+3. Remove the semicolon `;` to uncomment it: `extension=pdo_mysql`.
+4. Save and restart your terminal/server.
+
+### "Vite manifest not found"
+This means the frontend assets haven't been built.
+Run the following command:
+```bash
+npm run build
 ```
 
 ## Filament Resources
@@ -107,3 +154,11 @@ The `app/Filament/Resources` directory contains the Filament resources for the f
 -   `User`
 
 These resources provide a complete CRUD interface for managing the corresponding models.
+
+## Development Conventions
+
+This project uses Laravel Pint for code styling. To format your code, run the following command:
+
+```bash
+./vendor/bin/pint
+```
