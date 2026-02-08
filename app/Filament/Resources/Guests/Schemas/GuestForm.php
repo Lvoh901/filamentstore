@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\Guests\Schemas;
 
 use Filament\Schemas\Schema;
-
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use App\Models\Room;
 
 class GuestForm
 {
@@ -21,6 +23,14 @@ class GuestForm
                     ->required(),
                 TextInput::make('phone_number')
                     ->tel(),
+                Select::make('room_id')
+                    ->label('Room')
+                    ->options(Room::all()->pluck('room_number', 'id'))
+                    ->required(),
+                DatePicker::make('check_in_date')
+                    ->required(),
+                DatePicker::make('check_out_date')
+                    ->required(),
             ]);
     }
 }

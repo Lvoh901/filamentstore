@@ -25,6 +25,8 @@ class RoomsTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->searchable(),
+                TextColumn::make('amenities.name')
+                    ->label('Amenities'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

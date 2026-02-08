@@ -25,6 +25,11 @@ class GuestsTable
                     }),
                 TextColumn::make('email'),
                 TextColumn::make('phone_number'),
+                TextColumn::make('room_number')
+                    ->label('Room Number')
+                    ->getStateUsing(function ($record) {
+                        return $record->bookings->first()?->room?->room_number;
+                    }),
             ])
             ->filters([
                 //
